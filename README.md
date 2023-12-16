@@ -1,4 +1,4 @@
-# API START WARS 
+# API STAR WARS 
 skallar-dev
 ## INTRODUCTION
 Nesse projeto existe dois containers utilizando o Docker Compose: um para o MongoDB e outro para o Node.js. Dentro do ambiente Node.js, temos um processo que interaje com a API Star Wars (https://swapi.dev/documentation) existe duas rotas; 
