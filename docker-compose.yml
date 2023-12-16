@@ -1,0 +1,35 @@
+#Use root/example as user/password credentials
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo
+    restart: unless-stopped  
+    ports:
+      - 27017:27017
+    networks:
+      - my-networks  
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@localhost:27017/ 
+  node:
+    image: node:16-alpine
+    command: "npm start dev"
+    working_dir: "/usr/src/app"
+    environment:
+      - APP_PORT=${APP_PORT:-3001}
+    volumes:
+      - "./:/usr/src/app" 
+    networks:
+      - my-networks      
+    ports:
+      - "3001:3001" 
+    links:
+      - mongo  
+    depends_on:
+      - mongo   
+networks:
+  my-networks:
+    driver: bridge                  
